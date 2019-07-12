@@ -5,6 +5,7 @@ import { Observable, empty, Subject } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { AlertModalService } from 'src/app/shared/alert-modal.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-urls-lista',
@@ -18,7 +19,8 @@ export class UrlsListaComponent implements OnInit {
   urls$: Observable<Url[]>;
   error$ = new Subject<boolean>();
 
-  constructor(private service: UrlsService, private alertServices: AlertModalService) { }
+  constructor(private service: UrlsService, private alertServices: AlertModalService,
+    private router: Router, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.onRefresh();
@@ -37,6 +39,10 @@ export class UrlsListaComponent implements OnInit {
 
   handleError() {
     this.alertServices.showAlertDanger('Erro ao carregar URLs');
+  }
+
+  onEdit(id) {
+    this.router.navigate([`editar`, id], { relativeTo: this.route });
   }
 
 }

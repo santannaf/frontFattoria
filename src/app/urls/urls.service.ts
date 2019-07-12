@@ -31,6 +31,10 @@ export class UrlsService {
       )
   }
 
+  loadById(id) {
+    return this.http.get<Url>(`${this.API}url/${id}`).pipe(take(1));
+  }
+
   createShortUrl(url) {
     console.log(this.httpOptions)
     return this.http.post(this.API, url)
