@@ -1,0 +1,50 @@
+<div class="card mt-3">
+    <div class="card-header">
+        <div class="float-left">
+            <h4>URLs</h4>
+        </div>
+        <div class="float-right">
+            <button type="button" class="btn btn-primary" routerLink="nova">Nova URL</button>
+            <button type="button" class="btn btn-secondary" (click)="onRefresh()">Atualizar</button>
+        </div>
+    </div>
+    <div class="card-body">
+        <table class="table table-hover" *ngIf="urls$ | async as urls; else loadingError">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Orinal</th>
+                    <th>Modificada</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let url of urls">
+                    <td>{{ url.id }}</td>
+                    <td>{{ url.fullUrl }}</td>
+                    <td>{{ url.shortUrl }}</td>
+                    <td>
+                        <span class="float-right">
+                            <button class="btn btn-outline-warning mb-1 btn-sm">
+                                Atualizar
+                            </button>
+                            {{ '  ' }}
+                            <button class="btn btn-outline-danger mb-1 btn-sm">
+                                Remover
+                            </button>
+                        </span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <ng-template #loadingError>
+            <div *ngIf="error$ | async; else loading">
+                Erro ao carregar URLs
+            </div>
+            <ng-template #loading>
+                <span>Carregando URLs...</span>
+            </ng-template>
+        </ng-template>
+    </div>
+</div>
