@@ -17,34 +17,19 @@ export class UrlsFormComponent implements OnInit {
   submitted: Boolean = false;
 
   constructor(private fb: FormBuilder,
-    private service: UrlsService,
-    private modal: AlertModalService,
-    private localtion: Location,
-    private route: ActivatedRoute) { }
+              private service: UrlsService,
+              private modal: AlertModalService,
+              private localtion: Location,
+              private route: ActivatedRoute) { }
 
   ngOnInit() {
-    //let registro = null;
-    // this.route.params
-    // .pipe(
-    //   map((params: any) => params['id']),
-    //   switchMap(id => this.service.loadById(id))
-    // )    
-    // .subscribe(url => this.updatedForm(url));
-
-    const url = this.route.snapshot.data['url'];
+    const url = this.route.snapshot.data.url;
 
     this.form = this.fb.group({
       id: [url.id],
       urlOriginal: [url.fullUrl, [Validators.required]]
     });
   }
-
-  // updatedForm(url) {
-  //   this.form.patchValue({
-  //     id: url.id,
-  //     urlOriginal: url.fullUrl
-  //   });
-  // };
 
   hasError(field: string) {
     return this.form.get(field).errors;

@@ -43,7 +43,8 @@
                 Erro ao carregar URLs
             </div>
             <ng-template #loading>
-                <span>Carregando URLs...</span>
+                <!-- <span>Carregando URLs...</span> -->
+                <mat-spinner mode="indeterminate" *ngIf="showSpinner" ></mat-spinner>
             </ng-template>
         </ng-template>
     </div>

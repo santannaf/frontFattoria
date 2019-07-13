@@ -23,6 +23,7 @@ export class UrlsListaComponent implements OnInit {
   error$ = new Subject<boolean>();
 
   urlSelected: Url;
+  showSpinner = true;
 
   constructor(private service: UrlsService, private alertServices: AlertModalService,
     private router: Router, private route: ActivatedRoute, private modalService: BsModalService) { }
