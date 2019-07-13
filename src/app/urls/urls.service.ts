@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Url } from 'url';
+import { Url } from './url';
 import { tap, take } from 'rxjs/operators'
 import { environment } from 'src/environments/environment.prod';
 
@@ -41,6 +41,14 @@ export class UrlsService {
       .pipe(
         take(1)
       );
+  }
+
+  updatedUrl(url) {
+    return this.http.put(`${this.API}url/${url.id}`, url).pipe(take(1));
+  }
+
+  deleteurl(id) {
+return this.http.delete(`${this.API}url/${id}`).pipe(take(1));
   }
 
 }

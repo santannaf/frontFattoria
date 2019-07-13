@@ -23,26 +23,28 @@ export class UrlsFormComponent implements OnInit {
     private route: ActivatedRoute) { }
 
   ngOnInit() {
-    let registro = null;
-    this.route.params
-    .pipe(
-      map((params: any) => params['id']),
-      switchMap(id => this.service.loadById(id))
-    )    
-    .subscribe(url => this.updatedForm(url));
+    //let registro = null;
+    // this.route.params
+    // .pipe(
+    //   map((params: any) => params['id']),
+    //   switchMap(id => this.service.loadById(id))
+    // )    
+    // .subscribe(url => this.updatedForm(url));
+
+    const url = this.route.snapshot.data['url'];
 
     this.form = this.fb.group({
-      id: [null],
-      urlOriginal: [null, [Validators.required]]
+      id: [url.id],
+      urlOriginal: [url.fullUrl, [Validators.required]]
     });
   }
 
-  updatedForm(url) {
-    this.form.patchValue({
-      id: url.id,
-      urlOriginal: url.fullUrl
-    });
-  };
+  // updatedForm(url) {
+  //   this.form.patchValue({
+  //     id: url.id,
+  //     urlOriginal: url.fullUrl
+  //   });
+  // };
 
   hasError(field: string) {
     return this.form.get(field).errors;
@@ -50,15 +52,24 @@ export class UrlsFormComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    console.log(this.form.value);
     if (this.form.valid) {
-      this.service.createShortUrl(this.form.value).subscribe(
-        success => {
-          this.modal.showAlertSuccess('URL criada com sucesso !');
-          this.localtion.back();
-        },
-        error => this.modal.showAlertDanger('Erro ao criar uma URL, tente novamente')
-      );
+      if (this.form.value.id) {
+        this.service.updatedUrl(this.form.value).subscribe(
+          success => {
+            this.modal.showAlertSuccess('URL atualizada com sucesso !');
+            this.localtion.back();
+          },
+          error => this.modal.showAlertDanger('Erro ao atualizar uma URL, tente novamente')
+        );
+      } else {
+        this.service.createShortUrl(this.form.value).subscribe(
+          success => {
+            this.modal.showAlertSuccess('URL criada com sucesso !');
+            this.localtion.back();
+          },
+          error => this.modal.showAlertDanger('Erro ao criar uma URL, tente novamente')
+        );
+      }
     }
   }
 
