@@ -44,7 +44,9 @@
             </div>
             <ng-template #loading>
                 <!-- <span>Carregando URLs...</span> -->
-                <mat-spinner mode="indeterminate" *ngIf="showSpinner"></mat-spinner>
+                <div>
+                    <mat-spinner mode="indeterminate" *ngIf="showSpinner" style="margin:0 auto;"></mat-spinner>
+                </div>
             </ng-template>
         </ng-template>
     </div>

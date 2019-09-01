@@ -25,8 +25,11 @@ export class UrlsListaComponent implements OnInit {
   urlSelected: Url;
   showSpinner = true;
 
-  constructor(private service: UrlsService, private alertServices: AlertModalService,
-    private router: Router, private route: ActivatedRoute, private modalService: BsModalService) { }
+  constructor(private service: UrlsService, 
+              private alertServices: AlertModalService,
+              private router: Router, 
+              private route: ActivatedRoute, 
+              private modalService: BsModalService) { }
 
   ngOnInit() {
     this.onRefresh();
